@@ -1,4 +1,4 @@
-class ListNode {
+export class ListNode {
   value: any;
   next: ListNode | null;
 
@@ -8,7 +8,7 @@ class ListNode {
   }
 }
 
-class LinkedList {
+export class LinkedList {
   private head: ListNode | null;
 
   constructor() {
@@ -58,6 +58,10 @@ class LinkedList {
     return;
   }
 
+  isEmpty() {
+    return this.head !== null;
+  }
+
   deleteAll(value: any): void {
     if (!this.head) {
       return;
@@ -73,5 +77,29 @@ class LinkedList {
         current = current!.next;
       }
     }
+  }
+
+  removeTail() {
+    if (!this.head) {
+      return;
+    }
+
+    let currentNode: ListNode | null = this.head;
+
+    while (currentNode!.next!.next) {
+      currentNode = currentNode!.next;
+    }
+
+    currentNode!.next = null;
+  }
+
+  toArray(): any[] {
+    const result: any[] = [];
+    let current = this.head;
+    while (current) {
+      result.push(current.value);
+      current = current.next;
+    }
+    return result;
   }
 }
