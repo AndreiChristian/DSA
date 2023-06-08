@@ -23,3 +23,11 @@ class Stack {
     return this.list.toArray();
   }
 }
+
+const peronStack = new Stack();
+
+peronStack.push(4);
+
+peronStack.pop();
+
+console.log(peronStack.toArray());
