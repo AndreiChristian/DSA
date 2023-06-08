@@ -40,3 +40,4 @@ linkedList.append(2);
 linkedList.append(3);
 const elements = linkedList.toArray();
 console.log(elements);
+
