@@ -12,4 +12,10 @@
 
 // mixing types is allowed( in JS )
 
-console.log([1, 2, 3]);
+const names: any[] = ["Max", "Manu", "Julie", 3];
+
+for (const el of names) {
+  console.log(el);
+}
+
+names.push("Max");
