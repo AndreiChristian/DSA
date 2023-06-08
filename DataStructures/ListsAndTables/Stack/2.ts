@@ -1,4 +1,4 @@
-import { LinkedList, ListNode } from "../LinkedLists";
+import { LinkedList, ListNode } from "../../LinkedLists";
 
 class Stack {
   private list: LinkedList;
