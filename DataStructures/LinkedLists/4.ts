@@ -1,4 +1,4 @@
-class LinkedList3 {
+class LinkedList4 {
   private head;
   private tail;
 
@@ -97,6 +97,39 @@ class LinkedList3 {
     }
   }
 
+  find(value: any) {
+    if (!this.head) {
+      return -1;
+    }
+
+    let currentNode = this.head;
+
+    while (currentNode) {
+      if (currentNode.value === value) {
+        return currentNode;
+      }
+
+      currentNode = currentNode.next();
+    }
+
+    return -1;
+  }
+
+  insertAfter(value, afterValue) {
+    const existingNode = this.find(afterValue);
+
+    if (existingNode !== -1) {
+      const newNode = {
+        value: value,
+        next: existingNode.next,
+      };
+
+      existingNode.next = newNode;
+    } else {
+      return -1;
+    }
+  }
+
   toArray() {
     const elements: any[] = [];
 
@@ -121,16 +154,3 @@ class LinkedList3 {
     return elements;
   }
 }
-
-const linkedList3 = new LinkedList3();
-linkedList3.append(1);
-linkedList3.append(3);
-linkedList3.append(2);
-linkedList3.prepend(5);
-linkedList3.prepend(3);
-
-// console.log(linkedList3.deleteOne(4));
-
-linkedList3.deleteAll(1);
-
-console.log(linkedList3.getValues());
