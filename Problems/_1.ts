@@ -6,18 +6,15 @@ interface Node<T> {
   right: Node<T> | null;
 }
 
-const reverseTree = (node: Node<number> | null): Node<number> | null => {
+const reverseTree = (node: Node<number> | null) => {
   if (!node) {
     return null;
   }
 
-  const left = reverseTree(node.left);
-  const right = reverseTree(node.right);
+  reverseTree(node.left);
+  reverseTree(node.right);
 
-  node.right = left;
-  node.left = right;
-
-  return node;
+  [node.right, node.left] = [node.left, node.right];
 };
 
 const tree: Node<number> = {
@@ -50,6 +47,6 @@ const tree: Node<number> = {
   },
 };
 
-const reversedTree = reverseTree(tree);
+reverseTree(tree);
 
-console.log(reversedTree);
+console.log(tree);
