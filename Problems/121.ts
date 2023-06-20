@@ -24,14 +24,18 @@ Constraints:
 `;
 
 function maxProfit(prices: number[]): number {
+  let min = prices[0];
+  let maxDif = 0;
 
-  let max = 0;
-
-  for (let i = 0; i < prices.length - 2; i++) {
-    for (let j = i+1; j < prices.length - 1; j++) {
-      max = Math.max(max, prices[i] - prices[j]);
+  for (let i = 0; i < prices.length; i++) {
+    if (prices[i] < min) {
+      min = prices[i];
+    } else if (prices[i] - min > maxDif) {
+      maxDif = prices[i] - min;
     }
   }
 
-  return max;
+  return maxDif;
 }
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
