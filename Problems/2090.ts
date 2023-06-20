@@ -53,12 +53,16 @@ function getAverages(nums: number[], k: number): number[] {
 
   const avgArray: number[] = Array(k).fill(-1);
 
+  let sum = 0;
+
+  for (let i = 0; i < 2 * k; i++) {
+    sum = sum + nums[i];
+  }
+
   for (let i = k; i < nums.length - k; i++) {
-    let sum = 0;
-    for (let j = i - k; j <= i + k; j++) {
-      sum = sum + nums[j];
-    }
+    
     avgArray.push(Math.floor(sum / (k + k + 1)));
+    sum = sum - nums[i-k] + nums[i+k]
   }
 
   for (let i = 0; i < k; i++) {
