@@ -26,3 +26,22 @@ n == grid.length == grid[i].length
 1 <= n <= 200
 1 <= grid[i][j] <= 105
 `;
+
+function equalPairs(grid: number[][]): number {
+  let count = 0;
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+
+        let isEqual = true;
+
+        for(let k=0; k<grid.length; k++){}
+
+
+
+
+    }
+  }
+
+  return count;
+}
