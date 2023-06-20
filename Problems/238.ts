@@ -39,7 +39,11 @@ function productExceptSelf2(nums: number[]): number[] {
     right[j] = right[j + 1] * nums[j + 1];
   }
 
-  return right;
+  for (let i = 0; i < nums.length; i++) {
+    answer[i] = left[i] * right[i];
+  }
+
+  return answer;
 }
 
 console.log(productExceptSelf2(nums1));
