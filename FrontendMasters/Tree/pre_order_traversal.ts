@@ -1,4 +1,4 @@
-interface BinaryNode {
+export interface BinaryNode {
   left: BinaryNode;
   right: BinaryNode;
   value: number;
