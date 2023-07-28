@@ -41,41 +41,66 @@ Constraints:
 s and words[i] consist of lowercase English letters.
 `;
 
-function findSubstring(s: string, words: string[]): number[] {
-  const minSubbarayLength = words.length * words[0].length;
+function containsAllPermutations(s:string, words:string[]):boolean{
+    const wordsCount = new Map<string, number>();
 
-  if (minSubbarayLength) {
-    return [];
-  }
-
-  const startingIndicesArray: number[] = [];
-
-  let i = 0;
-
-  while (i < s.length - minSubbarayLength) {
-    if (containsAllPermuations(s.substring(i, i + minSubbarayLength), words)) {
-      startingIndicesArray.push(i);
+    for (const word of words){
+        if(wordsCount.has(word)){
+            wordsCount.set(word, wordsCount.get(word)! + 1);
+        } else {
+            wordsCount.set(word, 1);
+        }
     }
 
-    i++;
-  }
+    const wordLength = words[0].length;
 
-  return startingIndicesArray;
+    for(let i = 0; i <= s.length - wordLength; i += wordLength) {
+        const word = s.slice(i, i + wordLength);
+
+        if(wordsCount.has(word)) {
+            const count = wordsCount.get(word)! - 1;
+            if(count > 0){
+                wordsCount.set(word, count);
+            } else {
+                wordsCount.delete(word);
+            }
+        }
+    }
+
+    return wordsCount.size === 0;
 }
 
-function containsAllPermuations(s: string, words: string[]): boolean {
-  for (let i = 0; i < words.length; i++) {
-    if (!s.includes(words[i])) {
-      return false;
-    } else {
-      const index = s.indexOf(words[i]);
-      s = s.slice(index, words[i].length);
-    }
+function findSubstring(s: string, words: string[]): number[] {
+
+  const length = words.length * words[0].length;
+
+  if(s.length < length){
+    return []
   }
 
-  return true;
+  let start = 0;
+  const indexes:number[] = [];
+
+  while(start + length <= s.length){
+    
+    if(containsAllPermutations(s.slice(start, start + length), words)){
+      indexes.push(start)
+    }
+
+    start ++;
+
+  }
+
+  console.log(indexes)
+
+  return indexes;
+
 }
 
 findSubstring("barfoothefoobarman", ["foo", "bar"]);
 findSubstring("wordgoodgoodgoodbestword", ["word", "good", "best", "word"]);
-findSubstring("wordgoodgoodgoodbestword", ["word", "good", "best", "word"]);
+findSubstring("barfoofoobarthefoobarman",["bar","foo","the"] );
+findSubstring("wordgoodgoodgoodbestword", ["word","good","best","good"]);
+findSubstring("wordgoodgoodgoodbestword", ["word","good","best","word"]);
+
+console.log(containsAllPermutations("bababa",["ab","ba","ba"]))
