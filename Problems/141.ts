@@ -10,24 +10,23 @@
 
 function hasCycle(head: ListNode | null): boolean {
 
+    if(!head) return false;
 
-    if (head === null || head.next === null){
-      return false
-    }
+    let turtoise:ListNode|null = head;
+    let hare:ListNode|null = head;
 
-    const stack:any[] = [];
+    while(hare && hare.next){
 
-    let current : ListNode| null = head;
+      turtoise = turtoise!.next;
+      hare = hare.next!.next;
 
-    while(current !==null){
-
-      if(stack.find(current.val) !== undefined){
-
+      if(turtoise === hare){
         return true
-
       }
 
     }
+
+    return false
 
 }
 
