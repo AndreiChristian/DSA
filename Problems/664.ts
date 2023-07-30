@@ -36,10 +36,28 @@ function strangePrinter2(s: string): number {
 
 function strangePrinter(s: string): number {
 
-  
+  const n = s.length;
+  const dp: number[][] = Array.from({length:n}, () => Array(n).fill(0))
 
-  return 0;
+  for(let k=1; k<=n; k++){
+    for(let i=0; i<=n-k; i++){
+      const j = i + k -1;
 
+      if(k==1){
+        dp[i][j] = 1;
+        continue
+      }
+
+      dp[i][j]=k;
+      
+      for(let m=i; m<j; m++){
+        const turns = dp[i][m] + dp[m+1][j] - (s[m]===s[j]?1:0)
+        dp[i][j]= Math.min(dp[i][j],turns)
+      }
+
+    }
+  }
+  return dp[0][n-1];
 }
 
 console.log(strangePrinter("aaabbb"))
