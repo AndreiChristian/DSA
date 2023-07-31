@@ -1,35 +1,32 @@
-function minimumDeleteSum(s1: string, s2: string) {
+function minimumDeleteSum(s1: string, s2: string): number {
 
-  const map = new Map<string,number>();
+  const m = s1.length;
+  const n = s2.length;
+  const dp = Array.from({length: m + 1}, ()=> Array(n+1).fill(0))
 
-  for(const s of s1){
-    if(map.has(s)){
-      map.set(s,map.get(s)!+1)
-    } else {
-      map.set(s,1)
+  for(let i=1; i<=m; i++){
+    dp[i][0] = dp[i-1][0] + s1.charCodeAt(i-1)
+  }
+
+  for(let j=1; j<=n; j++){
+    dp[0][j] = dp[0][j-1] + s2.charCodeAt(j-1)
+  }
+
+  for(let i=1; i<=m; i++){
+    for(let j=1; j<=n; j++){
+      if(s1.charAt(i-1)===s2.charAt(j-1)){
+        dp[i][j] = dp[i-1][j-1]
+      } else {
+        dp[i][j]=Math.min(
+          dp[i-1][j] + s1.charCodeAt(i - 1),
+          dp[i][j-1] + s2.charCodeAt(j - 1)
+        )
+      }
     }
   }
 
-  for(const s of s2){
-    if(map.has(s)){
-      map.set(s,map.get(s)!-1)
-    } else {
-      map.set(s,1)
-    }
-  }
-
-  let sum = 0;
-
-  for(const s of map.keys()){
-    const v:number = map.get(s)!
-    if(v!==0){
-      sum += Math.abs(v) * s.charCodeAt(0) 
-    }
-  }
-
-  console.log(sum)
-  console.log("---------")
-
+  return dp[m][n];
+  
 }
 
 minimumDeleteSum("sea","eat")
