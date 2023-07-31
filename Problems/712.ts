@@ -34,3 +34,4 @@ function minimumDeleteSum(s1: string, s2: string) {
 
 minimumDeleteSum("sea","eat")
 minimumDeleteSum("delete","leet")
+minimumDeleteSum("a","at")
