@@ -26,9 +26,26 @@ All the words in s are separated by a single space.
 
 function wordPattern(pattern: string, s: string): boolean {
 
-    for(let i = 0;)
+    const words = s.split(" ");
 
-  return true;
+    if(words.length !== pattern.length) return false;
+
+    const charMap = new Map<string,string>();
+    const wordMap = new Map<string,string>();
+
+    for(let i=0; i<words.length; i++){
+
+        const char = pattern[i];
+        const word = words[i];
+
+        if(charMap.has(char) && charMap.get(char) !== word) return false;
+        if(wordMap.has(word) && wordMap.get(word) !== char) return false;
+
+        charMap.set(char,word)
+        wordMap.set(word,char)
+
+    }
+
+    return false
+
 }
-
-console.log("abba".split(""));
