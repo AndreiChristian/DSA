@@ -36,21 +36,23 @@ path is a valid absolute Unix path.
 `;
 
 function simplifyPath(path: string): string {
-  const newPath = path.split("/").filter((char) => char != "");
 
-  let output: string[] = [];
+  const newPath = path.split("/").filter(char => char!== "")
 
-  for (let i = 0; i < newPath.length; i++) {
-    if (newPath[i] == ".") {
-      continue;
-    } else if (newPath[i] === "..") {
-      output.pop();
+  const stack:string[] = [];
+
+  for(const el of newPath){
+    if (el === "."){
+      continue
+    } else if(el === ".."){
+      stack.length !==0 && stack.pop()
     } else {
-      output.push(newPath[i]);
+      stack.push(el)
     }
   }
 
-  return "/" + output.join("/");
+  return "/" + stack.join("/")
+
 }
 
 console.log(simplifyPath("/home/"));

@@ -25,35 +25,33 @@ s consists of parentheses only '()[]{}'.
 `;
 
 function isValid(s: string): boolean {
-  if (s.length % 2 === 1) {
-    return false;
+
+  const stack:string[] = []
+
+  const pairs :{[key:string]:string} = {
+    ")":"(",
+    "]":"[",
+    "}":"{",
   }
 
-  const paranthesis: any = { "{": "}", "[": "]", "(": ")" };
+  for(const char of s){
+    if(pairs[char]){
+      
+      if(stack.length === 0) return false 
 
-  const stack: string[] = [];
+      if(pairs[char] !== stack[stack.length -1]) return false
 
-  for (const char of s) {
-    if (char === "{" || char === "(" || char === "[") {
-      stack.unshift(char);
+      stack.pop()
+
     } else {
-      if (char === paranthesis[stack[0]]) {
-        stack.shift();
-      } else {
-        console.log(char);
-        return false;
-      }
+
+      stack.push(char)
+
     }
   }
 
-  if (stack.length !== 0) {
-    return false;
-  }
+  if(stack.length !== 0) return false;
 
-  return true;
+  return true
+
 }
-
-// console.log(isValid("()"));
-// console.log(isValid("()[]{}"));
-// console.log(isValid("()]{]}"));
-console.log(isValid("(("));
