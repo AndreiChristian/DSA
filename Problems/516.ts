@@ -1,32 +1,11 @@
-`
-Given a string s, return the longest 
-palindromic substring in s.
-
-Example 1:
-
-Input: s = "babad"
-Output: "bab"
-Explanation: "aba" is also a valid answer.
-Example 2:
-
-Input: s = "cbbd"
-Output: "bb"
+function longestPalindromeSubseq(s: string): number{
  
-Constraints:
-
-1 <= s.length <= 1000
-s consist of only digits and English letters.
-`;
-
-function longestPalindrome(s: string): string {
- 
-  if(s.length === 1) return s;
+  if(s.length === 1) return 1;
 
   const length = s.length;
 
   const dp:boolean[][] = Array.from({length:length}, () => Array(length).fill(false))
 
-  let start = 0;
   let maxLength =1;
 
   for(let i=0; i<length; i++){
@@ -36,7 +15,6 @@ function longestPalindrome(s: string): string {
   for( let i=0; i<length-1; i++){
     if(s[i]===s[i+1]){
       dp[i][i+1] = true
-      start = i
       maxLength=2;
     }
   }
@@ -50,7 +28,6 @@ function longestPalindrome(s: string): string {
         dp[i][j]=true;
 
         if(len>maxLength){
-          start = i;
           maxLength = len;
 
         }
@@ -58,8 +35,8 @@ function longestPalindrome(s: string): string {
       }
     }
   }
-  return s.substring(start,start + maxLength);
+
+  return maxLength
 
 }
-
 
