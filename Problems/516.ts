@@ -1,42 +1,22 @@
-function longestPalindromeSubseq(s: string): number{
- 
-  if(s.length === 1) return 1;
+function longestPalindromeSubseq(s: string): number {
 
-  const length = s.length;
+	const l = s.length;
+	const dp:number[][] = Array.from({length:l},()=> Array(l).fill(0))
 
-  const dp:boolean[][] = Array.from({length:length}, () => Array(length).fill(false))
+	for(let i =0; i<l; i++){
+		dp[i][i] = 1;
+	}
 
-  let maxLength =1;
+	for(let i = l -1; i>=0; i--){
+		for(let j = i + 1; j<l; j++){
+			if(s[i] === s[j]){
+				dp[i][j] = dp[i+1][j-1] + 2;
+			} else {
+				dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1])
+			}
+		}
+	}
 
-  for(let i=0; i<length; i++){
-    dp[i][i] = true;
-  }
-
-  for( let i=0; i<length-1; i++){
-    if(s[i]===s[i+1]){
-      dp[i][i+1] = true
-      maxLength=2;
-    }
-  }
-
-  for(let len =3; len<=length; len++){
-    for(let i=0; i<=length -len; i++){
-
-      const j = i + len -1;
-
-      if(s[i] === s[j] && dp[i+1][j-1]){
-        dp[i][j]=true;
-
-        if(len>maxLength){
-          maxLength = len;
-
-        }
-
-      }
-    }
-  }
-
-  return maxLength
+	return dp[0][l-1]
 
 }
-
